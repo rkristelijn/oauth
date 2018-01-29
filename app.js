@@ -23,8 +23,6 @@ passport.use(new GoogleStrategy({ // set these @ https://console.developers.goog
   }
 ))
 
-console.log('app.js')
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
@@ -45,16 +43,8 @@ app.use(session({
   resave: true, // express-session deprecated undefined resave option; provide resave option at app.js
   saveUninitialized: true // express-session deprecated undefined saveUninitialized option; provide saveUninitialized option at app.js
 }))
-app.use(passport.initialize())
-app.use(passport.session())
 
-passport.serializeUser(function (user, done) {
-  done(null, user)
-})
-
-passport.deserializeUser(function (user, done) {
-  done(null, user)
-})
+require('./config/passport')(app)
 
 app.use('/', index)
 app.use('/users', users)
