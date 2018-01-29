@@ -3,3 +3,8 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  div
+    ul
+      li
+        a(href='/auth/google', class="googleplus") 
+          i(class="fa fa-google-plus")
