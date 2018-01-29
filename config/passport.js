@@ -15,4 +15,6 @@ module.exports = (app) => {
   })
 
   require('./strategies/google.strategy')()
+  require('./strategies/twitter.strategy')()
+  require('./strategies/facebook.strategy')()
 }
