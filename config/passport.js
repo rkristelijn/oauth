@@ -1,15 +1,15 @@
 let passport = require('passport')
 
-module.exports = function (app) {
+module.exports = (app) => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  passport.serializeUser(function (user, done) {
+  passport.serializeUser((user, done) => {
     console.log("app.js", "serializeUser", user)
     done(null, user)
   })
 
-  passport.deserializeUser(function (user, done) {
+  passport.deserializeUser((user, done) => {
     console.log("app.js", "deserializeUser", user)
     done(null, user)
   })

@@ -4,24 +4,13 @@ let favicon = require('serve-favicon')
 let logger = require('morgan')
 let cookieParser = require('cookie-parser')
 let bodyParser = require('body-parser')
-let passport = require('passport')
+//let passport = require('passport')
 let session = require('express-session')
 
 let index = require('./routes/index')
 let users = require('./routes/users')
 let auth = require('./routes/auth')
-
 let app = express()
-let GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
-
-passport.use(new GoogleStrategy({ // set these @ https://console.developers.google.com/, add Google+ and Contacts API
-  clientID: '468098107681-ok607c02drturaldv3p5d4re5geops4e.apps.googleusercontent.com',
-  clientSecret: 'kYPqgNK7seYAFGY1hkkRegmu',
-  callbackURL: 'http://rpi1.gius.nl:3000/auth/google/callback'
-}, function (req, accessToken, refreshToken, profile, done) {
-    done(null, profile)
-  }
-))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -51,14 +40,14 @@ app.use('/users', users)
 app.use('/auth', auth)
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   let err = new Error('Not Found')
   err.status = 404
   next(err)
 })
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
