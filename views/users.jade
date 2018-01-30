@@ -3,3 +3,17 @@ extends layout
 block content
   img(src= user.image alt= user.name)
   div= user.name
+  pre!= JSON.stringify(user)
+  div
+    ul(class='social list-inline')
+      li
+        a(href='/auth/google', class=user.google ? 'googleplus' : '') 
+          i(class='fa fa-google-plus')
+        a(href='/auth/twitter', class=user.twitter ? 'twitter' : '') 
+          i(class='fa fa-twitter')
+        a(href='/auth/facebook', class=user.facebook ? 'facebook' : '') 
+          i(class='fa fa-facebook')
+        a(href='/auth/github', class=user.github ? 'github' : '') 
+          i(class='fa fa-github')
+        a(href='/auth/linkedin', class=user.linkedin ? 'linkedin' : '') 
+          i(class='fa fa-linkedin')

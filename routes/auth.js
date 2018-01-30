@@ -2,10 +2,10 @@ let express = require('express')
 let passport = require('passport')
 let router = express.Router()
 
-router.use(function timeLog(req, res, next) {
-  console.log('auth.js', 'Time: ', Date.now())
-  next()
-})
+// router.use(function timeLog(req, res, next) {
+//   console.log('auth.js', 'Time: ', Date.now())
+//   next()
+// })
 
 router.route('/google/callback')
   .get(passport.authenticate('google', {

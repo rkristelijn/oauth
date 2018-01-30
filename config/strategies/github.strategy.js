@@ -1,22 +1,47 @@
 let passport = require('passport')
 let GithubStrategy = require('passport-github').Strategy
+let User = require('../../models/user-model')
+let getId = require('./tools')
 
 module.exports = () => {
   //get at https://github.com/settings/applications/659234
   passport.use(new GithubStrategy({
     clientID: '2e607897e6ad15e52d5d',
     clientSecret: '2475c03d69b707f6c8248ab1da15d9d3e1c58090',
-    callbackURL: 'http://rpi1.gius.nl:3000/auth/github/callback'
-  }, function (accessToken, refreshToken, profile, done) {
-    console.log(profile)
-    let user = {}
-    //user.email = profile.emails[0].value
-    user.image = profile.photos[0].value
-    user.displayName = profile.displayName
-    user.github = {}
-    user.github.id = profile.id
-    user.github.token = accessToken
-
-    done(null, user)
+    callbackURL: 'http://rpi1.gius.nl:3000/auth/github/callback',
+    passReqToCallback: true
+  }, function (req, accessToken, refreshToken, profile, done) {
+    if (req.user) {
+      let query = getId(req.user, 'github')
+      User.findOne(query, (error, user) => {
+        if (user) {
+          user.github = {}
+          user.github.id = profile.id
+          user.github.token = accessToken
+          user.save()
+          done(null, user)
+        }
+      })
+    } else {
+      let query = { 'github.id': profile.id }
+      User.findOne(query, (error, user) => {
+        if (user) {
+          // console.log('github:found')
+          done(null, user)
+        } else {
+          // console.log('github:not found')
+          user = new User()
+          // user.email = profile.emails[0].value
+          // user.image = profile._json.image.url
+          user.image = profile.photos[0].value
+          user.displayName = profile.displayName
+          user.github = {}
+          user.github.id = profile.id
+          user.github.token = accessToken
+          user.save()
+          done(null, user)
+        }
+      })
+    }
   }))
 }

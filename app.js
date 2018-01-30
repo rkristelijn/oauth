@@ -6,11 +6,13 @@ let cookieParser = require('cookie-parser')
 let bodyParser = require('body-parser')
 //let passport = require('passport')
 let session = require('express-session')
+let mongoose = require('mongoose')
 
 let index = require('./routes/index')
 let users = require('./routes/users')
 let auth = require('./routes/auth')
 let app = express()
+let db = mongoose.connect('mongodb://localhost/socialAgg', { useMongoClient: true })
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -34,6 +36,11 @@ app.use(session({
 }))
 
 require('./config/passport')(app)
+
+// app.use((req, res, next) => {
+//   console.log('CATCH USER:', req.user)
+//   next()
+// })
 
 app.use('/', index)
 app.use('/users', users)
