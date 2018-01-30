@@ -12,7 +12,6 @@ router.route('/google/callback')
     successRedirect: '/users/',
     failure: '/error/'
   }))
-
 router.route('/google')
   .get(passport.authenticate('google', {
     scope: [
@@ -26,7 +25,6 @@ router.route('/twitter/callback')
     successRedirect: '/users/',
     failure: '/error/'
   }))
-
 router.route('/twitter')
   .get(passport.authenticate('twitter'))
 
@@ -35,12 +33,28 @@ router.route('/facebook/callback')
     successRedirect: '/users/',
     failure: '/error/'
   }))
-
 router.route('/facebook')
   .get(passport.authenticate('facebook', {
     scope: [
       'email'
     ]
   }))
+
+router.route('/github/callback')
+  .get(passport.authenticate('github', {
+    successRedirect: '/users/',
+    failure: '/error/'
+  }))
+router.route('/github')
+  .get(passport.authenticate('github'))
+
+
+router.route('/linkedin/callback')
+  .get(passport.authenticate('linkedin', {
+    successRedirect: '/users/',
+    failure: '/error/'
+  }))
+router.route('/linkedin')
+  .get(passport.authenticate('linkedin'))
 
 module.exports = router
