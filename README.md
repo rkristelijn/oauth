@@ -15,3 +15,7 @@ I have set up:
 For this to work I had to fiddle around with my hosts file to fool the browser, because localhost was not my machine, but my raspberry pi. 
 
 Just for the record, I have disabled all apps on above platform, so the keys won't work.
+
+An example:
+
+![Screenshot of the application](screenshot.PNG "Screenshot of the application")
