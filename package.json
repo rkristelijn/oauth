@@ -5,7 +5,7 @@
   "scripts": {
     "start": "DEBUG=oauth:* nodemon ./bin/www",
     "build": "DEBUG=oauth:* npm start",
-    "build-win": "set DEBUG=oauth:* & npm start"
+    "start-win": "set DEBUG=oauth:* & npm start"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
